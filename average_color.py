@@ -6,14 +6,10 @@ from PIL import Image
 
 def get_average_color(filepath: Union[str, Path]) -> tuple[int, int, int]:
     with Image.open(filepath) as img:
-        red, green, blue = 0, 0, 0
-        for x in range(img.width):
-            for y in range(img.height):
-                r, g, b = img.getpixel((x, y))
-                red += r
-                green += g
-                blue += b
         num_pixels = img.width * img.height
+        red = sum(img.getdata(0))
+        green = sum(img.getdata(1))
+        blue = sum(img.getdata(2))
     avg_red = red // num_pixels
     avg_green = green // num_pixels
     avg_blue = blue // num_pixels
